@@ -8,26 +8,21 @@ var lettersGuessed = [];
 
 
 //takes an input from the user and stores it in an array, will not repeat the same choice more than once
-document.onkeyup = function (event){
+document.onkeyup = function (event) {
     var userInput = event.key;
     
-    if (lettersGuessed.indexOf(userInput) < 0 ) {
     
+    if ( (lettersGuessed.indexOf(userInput) < 0) ) {
+    
+       
+        console.log(typeof userInput)
+        
         lettersGuessed.push(userInput);
         
         var lettersChosenNode = document.createTextNode(" " + lettersGuessed[lettersGuessed.length -1]);
         document.getElementById("letters").appendChild(lettersChosenNode);
         
     }
-   
-    
- 
-    
-    
-    
-    // var lettersChosenSpan = document.getElementById('letters');
-    // lettersChosenSpan.innerHTML =" " + lettersGuessed[lettersGuessed.length - 1];
-    
     
     console.log(lettersGuessed);
 };
@@ -38,6 +33,9 @@ document.onkeyup = function (event){
 
 
 
-//check to see if userInput is in the word
 
+//display word to guess using _ _ _ _
+
+
+//check to see if userInput is in the word
 
