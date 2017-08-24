@@ -9,12 +9,16 @@ var words = ["feta", "gouda", "cheddar", "swiss", "gorgonzola", "mozzarella"];
 var selectedWord = words[Math.floor((Math.random() * (words.length - 1)))];
 console.log(selectedWord + " this is the selected word");
 
+
 //displays _ _ _ for the length of the selected word
-function wordDisplay () {
-    var wordNode = document.createTextNode(selectedWord);
-    document.getElementById("word").appendChild(wordNode);
-    //display _ _ _ _ for each letter iof the selectedWord
-}
+var underscore = Array.from('_'.repeat(selectedWord.length));
+window.onload = function() {
+    //shows underscore placeholders
+    document.getElementById("word").textContent = underscore.join(' ');
+};
+
+
+
 
 //displays wins losses and guesses left
 var guessesLeftNode = document.createTextNode(guessesLeft);
@@ -32,9 +36,10 @@ document.getElementById("wins").appendChild(winsNode);
 function resetGame () {
     guessesLeft = 10;
     lettersGuessed = [];
+    selectedWord = words[Math.floor((Math.random() * (words.length - 1)))];
     document.getElementById("letters").textContent = lettersGuessed;
     document.getElementById("guessesLeft").textContent = guessesLeft;
-    selectedWord = words[Math.floor((Math.random() * (words.length - 1)))];
+    document.getElementById("word").textContent = selectedWord;
     console.log(selectedWord + " this is the selected word");
 }
 
@@ -54,11 +59,14 @@ document.onkeyup = function (event) {
         document.getElementById("letters").appendChild(lettersChosenNode);
         
         //checks for win and loss conditions and updates the values displayed
-        if (String(lettersGuessed[lettersGuessed.length - 1]) === String(selectedWord)) {
-            wins++;
-            console.log(wins + " this was a win");
-            document.getElementById("wins").textContent = wins;
-            resetGame();
+        if (selectedWord.includes(lettersGuessed[lettersGuessed.length - 1]) === true) {
+            console.log(" yay we made a match");
+            var charPosition = selectedWord.replace(/(lettersGussed[lettersGuessed.length - 1])/g, lettersGuessed[lettersGuessed.length - 1] );
+            
+            
+            // wins++;
+            // document.getElementById("wins").textContent = wins;
+            // resetGame();
         }
         else
         {
