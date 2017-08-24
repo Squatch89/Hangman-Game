@@ -3,10 +3,10 @@ var losses = 0;
 var guessesLeft = 10;
 var lettersGuessed = [];
 var allowedChoices =  ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var words = ["feta", "gouda", "cheddar", "swiss", "gorgonzola", "mozzarella"];
+var words = ["feta", "gouda", "cheddar", "swiss", "gorgonzola", "mozzarella", "brie", "provolone", "manchego", "asiago", " ricotta", "pecorino"];
 
 //chooses a letter to be guessed
-var selectedWord = words[Math.floor((Math.random() * (words.length - 1)))];
+var selectedWord = words[Math.floor((Math.random() * (words.length)))];
 console.log(selectedWord + " this is the selected word");
 
 
@@ -32,10 +32,11 @@ document.getElementById("wins").appendChild(winsNode);
 function resetGame () {
     guessesLeft = 10;
     lettersGuessed = [];
+    underscore = Array.from('_'.repeat(selectedWord.length));
     selectedWord = words[Math.floor((Math.random() * (words.length - 1)))];
     document.getElementById("letters").textContent = lettersGuessed;
     document.getElementById("guessesLeft").textContent = guessesLeft;
-    document.getElementById("word").textContent = selectedWord;
+    document.getElementById("word").textContent = underscore.join(' ');
     console.log(selectedWord + " this is the selected word");
 }
 
@@ -43,8 +44,7 @@ function resetGame () {
 document.onkeyup = function (event) {
     var userInput = event.key;
     
-    
-    if ( (lettersGuessed.indexOf(userInput) < 0) && (allowedChoices.indexOf(userInput) >= 0) ) {
+    if ((lettersGuessed.indexOf(userInput) < 0) && (allowedChoices.indexOf(userInput) >= 0)) {
         
         
         // console.log(typeof userInput + " this was the user input");
@@ -53,28 +53,32 @@ document.onkeyup = function (event) {
         
         var lettersChosenNode = document.createTextNode(" " + lettersGuessed[lettersGuessed.length - 1]);
         document.getElementById("letters").appendChild(lettersChosenNode);
+    
+       
         
         //checks for win and loss conditions and updates the values displayed
         if (selectedWord.includes(lettersGuessed[lettersGuessed.length - 1]) === true) {
             console.log(" yay we made a match");
-                var search = selectedWord.search(lettersGuessed[lettersGuessed.length - 1]);
-                console.log(search + " is the index number of where the searched letter lives in the array");
-                    for ( var i = 0; i < selectedWord.length; i++) {
-                    
-                    }
+            
+            for (var i = 0; i < selectedWord.length; i++) {
                 
-                var replace = selectedWord[search];
-                console.log(replace + " this is replaced");
-               
-                var replaceNode = document.createTextNode(replace);
-                document.getElementById("word").appendChild(replaceNode);
-    
+                if (selectedWord[i] === lettersGuessed[lettersGuessed.length -1]) {
+                    underscore[i] = lettersGuessed[lettersGuessed.length - 1];
+                    document.getElementById("word").textContent = underscore.join(" ");
+                }
+                if (underscore.join("") === selectedWord){
+                    wins++;
+                    document.getElementById("wins").textContent = wins;
+                    resetGame();
+                }
+            }
             // wins++;
             // document.getElementById("wins").textContent = wins;
             // resetGame();
         }
-        else
-        {
+        
+      
+        else {
             guessesLeft--;
             console.log(guessesLeft + " this was a guess");
             document.getElementById("guessesLeft").textContent = guessesLeft;
@@ -82,15 +86,13 @@ document.onkeyup = function (event) {
         
         console.log(lettersGuessed);
         //determines if you have lost and updates score if so
-        if (guessesLeft === 0)
-        {
+        if (guessesLeft === 0) {
             losses++;
             console.log(losses + " this was a loss");
             resetGame();
         }
     }
     
-  
     
 };
 
