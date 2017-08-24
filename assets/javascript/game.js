@@ -18,8 +18,6 @@ window.onload = function() {
 };
 
 
-
-
 //displays wins losses and guesses left
 var guessesLeftNode = document.createTextNode(guessesLeft);
 document.getElementById("guessesLeft").appendChild(guessesLeftNode);
@@ -29,8 +27,6 @@ document.getElementById("wins").appendChild(winsNode);
 
 // var lossesNode = document.createTextNode(losses);
 // document.getElementById("losses").appendChild(lossesNode);
-
-
 
 
 function resetGame () {
@@ -61,9 +57,18 @@ document.onkeyup = function (event) {
         //checks for win and loss conditions and updates the values displayed
         if (selectedWord.includes(lettersGuessed[lettersGuessed.length - 1]) === true) {
             console.log(" yay we made a match");
-            var charPosition = selectedWord.replace(/(lettersGussed[lettersGuessed.length - 1])/g, lettersGuessed[lettersGuessed.length - 1] );
-            
-            
+                var search = selectedWord.search(lettersGuessed[lettersGuessed.length - 1]);
+                console.log(search + " is the index number of where the searched letter lives in the array");
+                    for ( var i = 0; i < selectedWord.length; i++) {
+                    
+                    }
+                
+                var replace = selectedWord[search];
+                console.log(replace + " this is replaced");
+               
+                var replaceNode = document.createTextNode(replace);
+                document.getElementById("word").appendChild(replaceNode);
+    
             // wins++;
             // document.getElementById("wins").textContent = wins;
             // resetGame();
