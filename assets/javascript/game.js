@@ -9,14 +9,12 @@ var words = ["feta", "gouda", "cheddar", "swiss", "gorgonzola", "mozzarella", "b
 var selectedWord = words[Math.floor((Math.random() * (words.length)))];
 console.log(selectedWord + " this is the selected word");
 
-
 //displays _ _ _ for the length of the selected word
 var underscore = Array.from('_'.repeat(selectedWord.length));
 window.onload = function() {
     //shows underscore placeholders
     document.getElementById("word").textContent = underscore.join(' ');
 };
-
 
 //displays wins losses and guesses left
 var guessesLeftNode = document.createTextNode(guessesLeft);
@@ -72,12 +70,8 @@ document.onkeyup = function (event) {
                     resetGame();
                 }
             }
-            // wins++;
-            // document.getElementById("wins").textContent = wins;
-            // resetGame();
         }
         
-      
         else {
             guessesLeft--;
             console.log(guessesLeft + " this was a guess");
